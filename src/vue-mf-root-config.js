@@ -4,21 +4,18 @@ registerApplication({
   name: "@vue-mf/navbar",
   app: () => System.import("@vue-mf/navbar"),
   activeWhen: "/",
-  customProps: {
-    githubLink: "https://github.com/vue-microfrontends/root-config",
-  },
 });
 
 registerApplication({
-  name: "@vue-mf/dogs-dashboard",
-  app: () => System.import("@vue-mf/dogs-dashboard"),
+  name: "@vue-mf/order",
+  app: () => System.import("@vue-mf/order"),
   activeWhen: "/view-doggos",
 });
 
 registerApplication({
-  name: "@vue-mf/rate-dogs",
-  app: () => System.import("@vue-mf/rate-dogs"),
-  activeWhen: "/rate-doggos",
+  name: "@vue-mf/auth",
+  app: () => System.import("@vue-mf/auth"),
+  activeWhen: "/auth",
 });
 
 start();

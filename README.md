@@ -1,10 +1,8 @@
-# Vue Microfrontends root-config
-
-[![CircleCI](https://circleci.com/gh/vue-microfrontends/root-config.svg?style=svg)](https://circleci.com/gh/vue-microfrontends/root-config)
+# @vue-mf/root-config
 
 ## What is this?
 
-This is an example microfrontend repo demonstrating how to use [single-spa](https://single-spa.js.org). You can see the code running at https://vue.microfrontends.app.
+This is an microfrontend repo demonstrating how to use [single-spa](https://single-spa.js.org).
 
 ## How does it work?
 
@@ -14,7 +12,7 @@ This repository is a javascript project that creates a javascript bundle that is
 
 This project uses [Vue](https://vuejs.org) and was created with the [create-single-spa](https://single-spa.js.org/docs/create-single-spa) CLI. It uses webpack and babel.
 
-Whenever a pull request is merged to master, [CircleCI builds and deploys the project](https://circleci.com/gh/vue-microfrontends/root-config). The ["workflows" view](https://circleci.com/gh/vue-microfrontends/workflows) (pictured below) can be seen if you are logged into CircleCI. Deployments for this in-browser module are completely independent of deployments for any other module.
+Whenever a pull request is merged to master, [CI/CD builds and deploys the project](https://circleci.com/gh/vue-microfrontends/navbar). The ["workflows" view](https://drive.google.com/file/d/1kxD7F8Sdmijpya7WaDh5_vQn8DNJ1Doo/view?usp=sharing) (pictured below) Deployments for this in-browser module are completely independent of deployments for any other module.
 
 ![image](https://user-images.githubusercontent.com/5524384/75210801-5ba02700-573f-11ea-8064-46af165cba0a.png)
 
@@ -36,7 +34,7 @@ yarn start --https
 
 Go to https://localhost:9000/vue-mf-root-config.js and verify that you are able to load the file without any SSL problems. To solve SSL problems, see [these instructions](https://improveandrepeat.com/2016/09/allowing-self-signed-certificates-on-localhost-with-chrome-and-firefox/).
 
-Now, go to https://vue.microfrontends.app. In the browser console, run the following:
+Now, go to https://dev.dashboard.edenfarm.id. In the browser console, run the following:
 
 ```js
 localStorage.setItem("devtools", true);
@@ -46,11 +44,11 @@ Refresh the page. Click on the tan / beige rectangle:
 
 ![image](https://user-images.githubusercontent.com/5524384/75211359-e46b9280-5740-11ea-80bb-974846df414b.png)
 
-Set an [import map override](https://github.com/joeldenning/import-map-overrides/) to `9000`.
+Set an [import map override](https://github.com/joeldenning/import-map-overrides/) to `https://localhost:8501/js/app.js`.
 
 ![image](https://user-images.githubusercontent.com/5524384/75211553-7e333f80-5741-11ea-97d6-d3d86ffd1826.png)
 
-Refresh the page. Your local code for this module will now be running on https://vue.microfrontends.app. You may make changes locally and refresh the page to see them.
+Refresh the page. Your local code for this module will now be running on https://dev.dashboard.edenfarm.id. You may make changes locally and refresh the page to see them.
 
 ### All modules together
 
@@ -63,7 +61,3 @@ yarn start
 ```
 
 Now follow the steps above for "One module at a time" for each of the modules you wish to work on.
-
-## Adapting for your organization
-
-Feel free to fork and modify any files you would like when doing a proof of concept for your organization. When it's time to actually create / adapt your organization's projects, consider using [create-single-spa](https://single-spa.js.org/docs/create-single-spa) instead of forking this repository.

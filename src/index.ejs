@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue Microfrontends</title>
   <meta name="importmap-type" content="systemjs-importmap" />
-  <!-- <script type="systemjs-importmap" src="https://storage.googleapis.com/vue.microfrontends.app/importmap.json"></script> -->
+  <!-- <script type="systemjs-importmap" src="https://sdeden.surge.sh/importmap.json"></script> -->
   <% if (isLocal) { %>
   <script type="systemjs-importmap">
     {
@@ -14,14 +14,14 @@
         "@vue-mf/root-config": "//localhost:9000/vue-mf-root-config.js",
         "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.5.1/lib/system/single-spa.min.js",
         "@vue-mf/global": "//localhost:8080/vue-mf-global.js",
-        "@vue-mf/navbar": "//localhost:8501/js/app.js",
+        "@vue-mf/navbar": "https://localhost:8501/js/app.js",
         "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
         "@vue-mf/order": "https://localhost:8503/js/app.js",
         "@vue-mf/auth": "https://localhost:8502/js/app.js",
         "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.min.js",
         "@vue-mf/root-config/": "https://vue.microfrontends.app/root-config/685cb799969ab697700620a8663570a87834fdc7/",
-        "@vue-mf/navbar/": "//localhost:8501/js/",
-        "@vue-mf/order/": "https://https://localhost:8503/js/",
+        "@vue-mf/navbar/": "https://localhost:8501/js/",
+        "@vue-mf/order/": "https://localhost:8503/js/",
         "@vue-mf/global/": "//localhost:8080/",
         "@vue-mf/auth/": "https://localhost:8502/js/"
       }

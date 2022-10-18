@@ -7,8 +7,8 @@ registerApplication({
 });
 
 registerApplication({
-  name: "@vue-mf/order",
-  app: () => System.import("@vue-mf/order"),
+  name: "@vue-mf/rate-dogs",
+  app: () => System.import("@vue-mf/rate-dogs"),
   activeWhen: "/view-doggos",
 });
 

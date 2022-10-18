@@ -13,6 +13,12 @@ registerApplication({
 });
 
 registerApplication({
+  name: "@vue-mf/home",
+  app: () => System.import("@vue-mf/home"),
+  activeWhen: "/Home",
+});
+
+registerApplication({
   name: "@vue-mf/auth",
   app: () => System.import("@vue-mf/auth"),
   activeWhen: "/auth",

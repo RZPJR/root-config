@@ -24,4 +24,10 @@ registerApplication({
   activeWhen: "/auth",
 });
 
+registerApplication({
+  name: "@vue-mf/error-handling",
+  app: () => System.import("@vue-mf/error-handling"),
+  activeWhen: "/error",
+});
+
 start();

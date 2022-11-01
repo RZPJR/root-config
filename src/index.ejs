@@ -6,32 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue Microfrontends</title>
   <meta name="importmap-type" content="systemjs-importmap" />
-  <!-- <script type="systemjs-importmap" src="https://sdeden.surge.sh/importmap.json"></script> -->
-  <% if (isLocal) { %>
-  <script type="systemjs-importmap">
-    {
-      "imports": {
-        "@vue-mf/root-config": "//localhost:9000/vue-mf-root-config.js",
-        "single-spa": "https://cdn.jsdelivr.net/npm/single-spa@5.5.1/lib/system/single-spa.min.js",
-        "@vue-mf/global": "//localhost:8080/vue-mf-global.js",
-        "@vue-mf/navbar": "//localhost:8501/js/app.js",
-        "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.min.js",
-        "@vue-mf/order": "//localhost:8503/js/app.js",
-        "@vue-mf/home": "//localhost:8505/js/app.js",
-        "@vue-mf/auth": "//localhost:8502/js/app.js",
-        "@vue-mf/error-handling": "//localhost:8506/js/app.js",
-        "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.1.6/dist/vue-router.min.js",
-        "@vue-mf/root-config/": "https://vue.microfrontends.app/root-config/685cb799969ab697700620a8663570a87834fdc7/",
-        "@vue-mf/navbar/": "//localhost:8501/js/",
-        "@vue-mf/order/": "//localhost:8503/js/",
-        "@vue-mf/home/": "//localhost:8505/js/",
-        "@vue-mf/global/": "//localhost:8080/",
-        "@vue-mf/auth/": "//localhost:8502/js/",
-        "@vue-mf/error-handling/": "//localhost:8506/js/"
-      }
-    }
-  </script>
-  <% } %>
+  <script type="systemjs-importmap" src="https://shared-deps.edenfarm.tech/importmap.json"></script>
   <script src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>

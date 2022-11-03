@@ -24,21 +24,7 @@ Deploy Dev:
   image: gcr.io/google.com/cloudsdktool/google-cloud-cli:alpine
   before_script:
     - gcloud components install kubectl gke-gcloud-auth-plugin
-    - |
-        cat <<EOF >> gcloud-service-key.json
-          {
-            "type": "service_account",
-            "project_id": "hip-voyager-363707",
-            "private_key_id": "9b376eb0fb9ff69adbb2658f8c14c04a407e31bb",
-            "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDYjdmrH+KDrM4N\nNC9+hLz1XLkuz4JJZ/t1TYeV/L7PjnVuWPjmgehX0hGfhQkNKwHgIJ1ZEImaJRLo\nVtpLE51Jge3GZ/EVJsbFM7nUlCl1hjue2UJfnxTQvAi+Qrbco0n7qkVm+gLk3om4\nznEKaI8fL55zQ0sPemdnPZkY5CjabISxhgDCY1vH6D9EdfOcsJtV0/+qhdB2kW/H\n81lA0EDgEP5AX1fyX4Eb8mJLdBHtFZ+eu5bkbpDjk1WB4UuMfP3B/VvyavJ+0YmP\nWAFUaO6ycD5ip/O3GJbE+TQyMe167bNytY6QwsSc/l+CSE9u1e8M7t2vj+OvIHcu\n6yocD3AlAgMBAAECggEAVmQYnyUkN4Wb2jakb+PCglwQYHVWM7Sw43Yfjh17fdAG\nVxRVj5fpugdLEol/N+qdX+2C+EIZsw3xQhFMGsFjcSzNT+atjdOfXpKpIv5Mn98C\nL/fae805/5/UGRsCWnkmDak68L7yop2I8dohzJYz6qwTmUYSTsV1NQGk7wIurhv6\niRWq4Rr/KbbgmnQW+iD3vAvEQp3eVtaJyAGw810WCJolZaXBJqx9lNOEs8upKqSq\nwLLckKJhisG58SU7UYsCmgfega+68PcNEuiBjJgigEeaMKaEa8RDlNGcS0PqFXJ8\ngzRyrGR3WOWc07ecJtcgp2rKO80MTSMziX9s2EBcDQKBgQD6SPpJP9zif8Mf4qIs\nanrxgKqcLJs/Cth5C4OsEnwt/c90umoGg62mqRn93CqKoTAIGLsIFt7r5SHe/pae\nrTBu/d9pCM/Eojin7CFIKV4B9w/KcuX6CVRa6W/6h1tvoPzav+DAHlqR7hghdpEZ\ny2i3MdLQd8PQFjlRwnwZi/ayzwKBgQDdf7Nm/wapfQnenhtmKOX9rXO5GvsxzKZ2\nJez9N28nPlV+DLLB00vuO/Zye4Xp0OgnRQJ5cVhICBhVXCS1ezJkq/xq1/+nYzij\n0GpojagMe1vOnRSsjEhUAzMgiJ1Gs6j6FzvzqAYv6Jx0unOKmuK7Q06PUn73lPO2\nQNedkHd6ywKBgQCpB0gg2ARw4yAAFKq5nF/TYbXXKzjdZpGzjdcrCoDa/qJwjsS0\nCZHpECMBkwMYBKvPjAQj/m4mmeQ6GW3XU9d13fZXlR/cCEKDBbGkbmuSoCwF6Xrv\nVgWmMCjz5R4XUX3yrcs3dEhubYHWd6Ce7wSVVAyvxXJ0wc2MLfBpwGCneQKBgCDz\n3KbYDg+tEIjUENN0BjNlWLATOYfBIIq3Pbi2RI0cEu/7x6RaYROCTDnf8p5EfCVL\neQDEQhQFUElyuetd9rNPevASTnCCrGyClzIS0Qt6VsA4UlkRTblh+HtAl9Vq6Rq7\n1il7t9/sxUoAaywVuuGNM+TSqxz+Rfu5TdqdIYldAoGAZWUiqAnl4UmpdvInUc3H\n31pboLH3ZhBNwXMqEt8hxXSp+hVtpflTzzFIrZkkloW35bRZmktUYFKJrWpLqU+l\nR3Cvlz3F9uLRzvcFlZ3KV95H+MnQMBk6SsqUHHaZ2pleqcwrOYJ3TJuUuHCJ/M8x\nealHc9btECE2HIeBEIwTeuU=\n-----END PRIVATE KEY-----\n",
-            "client_email": "deployment-sa@hip-voyager-363707.iam.gserviceaccount.com",
-            "client_id": "116084575735070826769",
-            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-            "token_uri": "https://oauth2.googleapis.com/token",
-            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-            "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/deployment-sa%40hip-voyager-363707.iam.gserviceaccount.com"
-          }
-        EOF
+    - echo $GCP_SA_KEY > gcloud-service-key.json
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     - gcloud container clusters get-credentials erp-cluster --region asia-southeast1 --project hip-voyager-363707
   script:

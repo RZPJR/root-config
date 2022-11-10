@@ -26,7 +26,7 @@ Deploy Dev:
     - gcloud components install kubectl gke-gcloud-auth-plugin
     - echo $GCP_SA_KEY > gcloud-service-key.json
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
-    - gcloud container clusters get-credentials erp-cluster --region asia-southeast1 --project hip-voyager-363707
+    - gcloud container clusters get-credentials $CLUSTER_NAME --region asia-southeast1 --project $PROJECT_NAME
   script:
     - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" kubernetes/deploy-dev.yaml
     - kubectl apply -f kubernetes/deploy-dev.yaml

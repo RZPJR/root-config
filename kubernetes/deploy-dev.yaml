@@ -87,3 +87,40 @@ spec:
       target:
         type: Utilization
         averageUtilization: 75
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: root-config
+  namespace: root-config
+spec:
+  dnsNames:
+    - v3-dashboard.edenfarm.tech
+  secretName: root-config-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: root-config
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  name: root-config
+spec:
+  tls:
+  - hosts:
+    - v3-dashboard.edenfarm.tech
+    secretName: root-config-tls
+  rules:
+  - host: v3-dashboard.edenfarm.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: svc-root-config
+            port:
+              number: 80

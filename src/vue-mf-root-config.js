@@ -30,4 +30,10 @@ registerApplication({
   activeWhen: "/error",
 });
 
+registerApplication({
+  name: "@vue-mf/user",
+  app: () => System.import("@vue-mf/user"),
+  activeWhen: "/user",
+});
+
 start();

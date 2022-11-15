@@ -36,4 +36,6 @@ registerApplication({
   activeWhen: "/user",
 });
 
-start();
+start({
+  urlRerouteOnly: true,
+});

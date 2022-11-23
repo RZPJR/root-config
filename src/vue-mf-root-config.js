@@ -42,4 +42,7 @@ registerApplication({
   activeWhen: "/inventory",
 });
 
-start();
+start({
+  urlRerouteOnly: true,
+});
+

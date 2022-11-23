@@ -36,6 +36,12 @@ registerApplication({
   activeWhen: "/user",
 });
 
+registerApplication({
+  name: "@vue-mf/inventory",
+  app: () => System.import("@vue-mf/inventory"),
+  activeWhen: "/inventory",
+});
+
 start({
   urlRerouteOnly: true,
 });

@@ -48,6 +48,12 @@ registerApplication({
   activeWhen: "/configuration",
 });
 
+registerApplication({
+  name: "@vue-mf/campaign",
+  app: () => System.import("@vue-mf/campaign"),
+  activeWhen: "/campaign",
+});
+
 start({
   urlRerouteOnly: true,
 });

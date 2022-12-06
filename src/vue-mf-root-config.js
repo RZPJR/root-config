@@ -39,7 +39,7 @@ registerApplication({
 registerApplication({
   name: "@vue-mf/inventory",
   app: () => System.import("@vue-mf/inventory"),
-  activeWhen: "/inventory",
+  activeWhen: "/catalog",
 });
 
 registerApplication({

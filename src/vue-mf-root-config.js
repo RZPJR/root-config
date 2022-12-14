@@ -57,7 +57,7 @@ registerApplication({
 registerApplication({
   name: "@vue-mf/crm",
   app: () => System.import("@vue-mf/crm"),
-  activeWhen: "/crm",
+  activeWhen: "/customer-relation",
 });
 
 start({

@@ -1,36 +1,11 @@
+include:
+  - project: 'project-version3/erp-infra/gitlab-ci'
+    file:
+      - 'sonarqube-check.yml'
+      - 'build-image.yml'
+      - 'deploy-dev.yml'
+
 stages:
+  - test
   - build
   - deploy
-
-Build Image:
-  stage: build
-  image:
-    name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
-  script:
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "gitlab-ci-token" "${CI_JOB_TOKEN}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
-    - >-
-      /kaniko/executor
-      --cache=false
-      --context "${CI_PROJECT_DIR}"
-      --dockerfile docker/Dockerfile
-      --destination $CI_REGISTRY_IMAGE/$CI_COMMIT_BRANCH:$CI_COMMIT_SHORT_SHA
-  only:
-    - dev
-
-Deploy Dev:
-  stage: deploy
-  image: gcr.io/google.com/cloudsdktool/google-cloud-cli:alpine
-  before_script:
-    - gcloud components install kubectl gke-gcloud-auth-plugin
-    - echo $GCP_SA_KEY > gcloud-service-key.json
-    - gcloud auth activate-service-account --key-file gcloud-service-key.json
-    - gcloud container clusters get-credentials $CLUSTER_NAME --region asia-southeast1 --project $PROJECT_NAME
-  script:
-    - sed -i "s/<VERSION>/${CI_COMMIT_SHORT_SHA}/g" kubernetes/deploy-dev.yaml
-    - kubectl apply -f kubernetes/deploy-dev.yaml
-  only:
-    - dev
-  tags:
-    - deploy_to_dev

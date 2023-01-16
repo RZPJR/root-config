@@ -60,7 +60,5 @@ registerApplication({
   activeWhen: "/customer-relation",
 });
 
-start({
-  urlRerouteOnly: true,
-});
+start();
 

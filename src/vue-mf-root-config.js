@@ -1,66 +1,73 @@
-import { registerApplication, start } from "single-spa";
+import { registerApplication, start, loadApp } from "single-spa";
+import _ from "lodash";
 
-registerApplication({
-  name: "@vue-mf/navbar",
-  app: () => System.import("@vue-mf/navbar"),
-  activeWhen: "/",
+// untuk init route & app name
+const routes = {
+  "/": "@vue-mf/navbar",
+  "/home": "@vue-mf/home",
+  "/auth": "@vue-mf/auth",
+  "/error": "@vue-mf/error-handling",
+  "/user": "@vue-mf/user",
+  "/catalog": "@vue-mf/inventory",
+  "/configuration": "@vue-mf/configuration",
+  "/campaign": "@vue-mf/campaign",
+  "/customer-relation": "@vue-mf/crm",
+};
+
+// untuk load route & app name
+const loadMicrofrontend = async (name) => {
+  try {
+    const app = await System.import(name);
+    return app;
+  } catch (err) {
+    console.log(`Error loading ${name} microfrontend: ${err}`);
+    return Promise.reject(err);
+  }
+}
+
+
+// looping route & app name untuk di register
+Object.entries(routes).forEach(([route, name]) => {
+  registerApplication({
+    name,
+    app: async () => {
+      try {
+        const app = await loadMicrofrontend(name);
+        // Pemakaian lodash.merge disini untuk mencegah antara mfe jika ada library conflicts
+        _.merge(app, window[name]);
+        return app;
+      } catch (err) {
+        console.error(`Error loading ${name} microfrontend:`, err);
+        const errorContainer = document.getElementById("error-container");
+        if (errorContainer) {
+          errorContainer.innerHTML = `Error loading ${name} microfrontend: ${err.message}`;
+        }
+        throw err;
+      }
+    },
+    activeWhen: route
+  });
 });
 
-registerApplication({
-  name: "@vue-mf/order",
-  app: () => System.import("@vue-mf/order"),
-  activeWhen: "/dashboard",
+start();
+
+// untuk show ui error jika ada failure terhadap mfe
+document.getElementById('fetch-loading-element').style.visibility='hidden';
+
+window.addEventListener('single-spa:before-routing-event', function() {
+  document.getElementById('fetch-loading-element').style.visibility='visible';
 });
 
-registerApplication({
-  name: "@vue-mf/home",
-  app: () => System.import("@vue-mf/home"),
-  activeWhen: "/Home",
+window.addEventListener('single-spa:routing-event', async function() {
+  const activeApp = singleSpa.getAppStatus().activeApp;
+  if (!activeApp) {
+    const appName = routes[window.location.pathname];
+    await loadApp(appName, {
+      success: () => {
+        document.getElementById('fetch-loading-element').style.visibility='hidden';
+      }
+    });
+  } else {
+    document.getElementById('fetch-loading-element').style.visibility='hidden';
+  }
 });
-
-registerApplication({
-  name: "@vue-mf/auth",
-  app: () => System.import("@vue-mf/auth"),
-  activeWhen: "/auth",
-});
-
-registerApplication({
-  name: "@vue-mf/error-handling",
-  app: () => System.import("@vue-mf/error-handling"),
-  activeWhen: "/error",
-});
-
-registerApplication({
-  name: "@vue-mf/user",
-  app: () => System.import("@vue-mf/user"),
-  activeWhen: "/user",
-});
-
-registerApplication({
-  name: "@vue-mf/inventory",
-  app: () => System.import("@vue-mf/inventory"),
-  activeWhen: "/catalog",
-});
-
-registerApplication({
-  name: "@vue-mf/configuration",
-  app: () => System.import("@vue-mf/configuration"),
-  activeWhen: "/configuration",
-});
-
-registerApplication({
-  name: "@vue-mf/campaign",
-  app: () => System.import("@vue-mf/campaign"),
-  activeWhen: "/campaign",
-});
-
-registerApplication({
-  name: "@vue-mf/crm",
-  app: () => System.import("@vue-mf/crm"),
-  activeWhen: "/customer-relation",
-});
-
-start({
-  urlRerouteOnly: true,
-});
-

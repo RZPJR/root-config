@@ -29,6 +29,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "single-spa": "^5.3.4"
   }
 }

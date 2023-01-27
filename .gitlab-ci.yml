@@ -3,7 +3,7 @@ include:
     file:
       - 'sonarqube-check.yml'
       - 'build-image.yml'
-      - 'deploy-dev.yml'
+      - 'deploy-image.yml'
 
 stages:
   - test

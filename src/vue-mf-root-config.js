@@ -1,4 +1,4 @@
-import { registerApplication, start, loadApp } from "single-spa";
+import { registerApplication, start } from "single-spa";
 import _ from "lodash";
 
 // untuk init route & app name
@@ -50,24 +50,3 @@ Object.entries(routes).forEach(([route, name]) => {
 });
 
 start();
-
-// untuk show ui error jika ada failure terhadap mfe
-document.getElementById('fetch-loading-element').style.visibility='hidden';
-
-window.addEventListener('single-spa:before-routing-event', function() {
-  document.getElementById('fetch-loading-element').style.visibility='visible';
-});
-
-window.addEventListener('single-spa:routing-event', async function() {
-  const activeApp = singleSpa.getAppStatus().activeApp;
-  if (!activeApp) {
-    const appName = routes[window.location.pathname];
-    await loadApp(appName, {
-      success: () => {
-        document.getElementById('fetch-loading-element').style.visibility='hidden';
-      }
-    });
-  } else {
-    document.getElementById('fetch-loading-element').style.visibility='hidden';
-  }
-});

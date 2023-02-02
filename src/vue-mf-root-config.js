@@ -12,6 +12,10 @@ const routes = {
   "/configuration": "@vue-mf/configuration",
   "/campaign": "@vue-mf/campaign",
   "/customer-relation": "@vue-mf/crm",
+  "/logistic": "@vue-mf/logistic",
+  "/finance": "@vue-mf/finance",
+  "/purchasing": "@vue-mf/purchasing",
+  "/site": "@vue-mf/site"
 };
 
 // untuk load route & app name

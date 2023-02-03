@@ -8,7 +8,7 @@ const routes = {
   "/auth": "@vue-mf/auth",
   "/error": "@vue-mf/error-handling",
   "/user": "@vue-mf/user",
-  "/catalog": "@vue-mf/inventory",
+  "/catalog": "@vue-mf/catalog",
   "/configuration": "@vue-mf/configuration",
   "/campaign": "@vue-mf/campaign",
   "/customer-relation": "@vue-mf/crm",

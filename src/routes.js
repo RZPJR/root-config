@@ -11,7 +11,8 @@ const routes = {
   "/logistic": "@vue-mf/logistic",
   "/finance": "@vue-mf/finance",
   "/purchasing": "@vue-mf/purchasing",
-  "/site": "@vue-mf/site"
+  "/site": "@vue-mf/site",
+  "/promotion": "@vue-mf/promotion"
 };
 
 export default routes;

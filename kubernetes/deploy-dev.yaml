@@ -32,11 +32,11 @@ spec:
         imagePullPolicy: Always
         resources:
           requests:
+            memory: 50Mi
+            cpu: 15m
+          limits:
             memory: 150Mi
             cpu: 100m
-          limits:
-            memory: 500Mi
-            cpu: 300m
         volumeMounts:
         - name: tz-config
           mountPath: /etc/localtime
@@ -45,6 +45,29 @@ spec:
           hostPath:
             path: /usr/share/zoneinfo/Asia/Jakarta
             type: File
+      tolerations:
+      - key: instance_type
+        value: service
+        effect: NoSchedule
+        operator: Equal
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: role
+                operator: In
+                values:
+                - devops
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - root-config
+            topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service

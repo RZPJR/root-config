@@ -1,3 +1,21 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: root-config
+  labels:
+    app: root-config
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry
+  namespace: root-config
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXQuZWRlbmZhcm0uaWQ6NTA1MCI6IHsKCQkJImF1dGgiOiAiYkdsdVoyZHZPbnBDU2xwTldYRk9OVlJWT0ZaNlJ6YzRhRzloIgoJCX0KCX0KfQ==
+type: kubernetes.io/dockerconfigjson
+
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -25,10 +43,10 @@ spec:
       - name: registry
       containers:
       - name: root-config
-        image: git.edenfarm.id:5050/project-version3/erp-dashboard/root-config/dev:<VERSION>
+        image: git.edenfarm.id:5050/project-version3/erp-dashboard/root-config/eks-dev:<VERSION>
         ports:
-          - name: http-port
-            containerPort: 8080
+        - name: http-port
+          containerPort: 8080
         imagePullPolicy: Always
         resources:
           requests:
@@ -41,33 +59,33 @@ spec:
         - name: tz-config
           mountPath: /etc/localtime
       volumes:
-        - name: tz-config
-          hostPath:
-            path: /usr/share/zoneinfo/Asia/Jakarta
-            type: File
-      tolerations:
-      - key: instance_type
-        value: service
-        effect: NoSchedule
-        operator: Equal
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: role
-                operator: In
-                values:
-                - devops
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - root-config
-            topologyKey: kubernetes.io/hostname
+      - name: tz-config
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Jakarta
+          type: File
+          # tolerations:
+          # - key: instance_type
+          #   value: service
+          #   effect: NoSchedule
+          #   operator: Equal
+          # affinity:
+          #   nodeAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #       nodeSelectorTerms:
+          #       - matchExpressions:
+          #         - key: role
+          #           operator: In
+          #           values:
+          #           - devops
+          #   podAntiAffinity:
+          #     requiredDuringSchedulingIgnoredDuringExecution:
+          #     - labelSelector:
+          #         matchExpressions:
+          #         - key: app
+          #           operator: In
+          #           values:
+          #           - root-config
+          #       topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service
@@ -118,7 +136,7 @@ metadata:
   namespace: root-config
 spec:
   dnsNames:
-    - v3-dashboard.edenfarm.tech
+  - v3-dashboard.edenfarm.tech
   secretName: root-config-tls
   issuerRef:
     name: letsencrypt-cluster-issuer

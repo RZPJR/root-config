@@ -1,3 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: root-config
+  labels:
+    app: root-config
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: registry
+  namespace: root-config
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJnaXQuZWRlbmZhcm0uaWQ6NTA1MCI6IHsKCQkJImF1dGgiOiAiYkdsdVoyZHZPbnBDU2xwTldYRk9OVlJWT0ZaNlJ6YzRhRzloIgoJCX0KCX0KfQ==
+type: kubernetes.io/dockerconfigjson
+
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -45,29 +62,29 @@ spec:
           hostPath:
             path: /usr/share/zoneinfo/Asia/Jakarta
             type: File
-      tolerations:
-      - key: instance_type
-        value: service
-        effect: NoSchedule
-        operator: Equal
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: role
-                operator: In
-                values:
-                - devops
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - root-config
-            topologyKey: kubernetes.io/hostname
+      # tolerations:
+      # - key: instance_type
+      #   value: service
+      #   effect: NoSchedule
+      #   operator: Equal
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: role
+      #           operator: In
+      #           values:
+      #           - devops
+      #   podAntiAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #     - labelSelector:
+      #         matchExpressions:
+      #         - key: app
+      #           operator: In
+      #           values:
+      #           - root-config
+      #       topologyKey: kubernetes.io/hostname
 ---
 apiVersion: v1
 kind: Service

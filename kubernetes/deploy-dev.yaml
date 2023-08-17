@@ -43,7 +43,7 @@ spec:
       - name: registry
       containers:
       - name: root-config
-        image: git.edenfarm.id:5050/project-version3/erp-dashboard/root-config/eks-dev:<VERSION>
+        image: git.edenfarm.id:5050/project-version3/erp-dashboard/root-config/dev:<VERSION>
         ports:
         - name: http-port
           containerPort: 8080
@@ -147,9 +147,10 @@ kind: Ingress
 metadata:
   namespace: root-config
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/rewrite-target: /
   name: root-config
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - v3-dashboard.edenfarm.tech

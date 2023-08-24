@@ -42,7 +42,7 @@ spec:
       - name: registry
       containers:
       - name: root-config
-        image: git.edenfarm.id:5050/project-version3/erp-dashboard/root-config/master:<VERSION>
+        image: git.edenfarm.id:5050/project-version3/erp-dashboard/root-config/uat:<VERSION>
         ports:
           - name: http-port
             containerPort: 8080
@@ -135,7 +135,7 @@ metadata:
   namespace: root-config
 spec:
   dnsNames:
-    - v3-dashboard.edenfarm.id
+    - uat-v3-dashboard.edenfarm.tech
   secretName: root-config-tls
   issuerRef:
     name: letsencrypt-cluster-issuer
@@ -152,10 +152,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - v3-dashboard.edenfarm.id
+    - uat-v3-dashboard.edenfarm.tech
     secretName: root-config-tls
   rules:
-  - host: v3-dashboard.edenfarm.id
+  - host: uat-v3-dashboard.edenfarm.tech
     http:
       paths:
       - path: /
